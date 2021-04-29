@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<title>梵字を入力するやつ</title>
+<script src="siddham.js"></script>
+<style>
+    #out_latin {
+        margin: 0.5em 0;
+        font-family: 'Times New Roman', serif;
+        font-size: 200%;
+        white-space: pre-wrap;
+    }
+
+    #out_siddham {
+        font-size: 400%;
+        white-space: pre-wrap;
+    }
+</style>
+
+<body>
+    <h1>梵字を入力するやつ</h1>
+    <input type="text" id="in_text" oninput="update();">
+    <div id="out_latin"></div>
+    <div id="out_siddham"></div>
+    <script>
+        function update() {
+            const text = document.getElementById("in_text").value
+            document.getElementById("out_siddham").innerText = ascii2siddham(text)
+            document.getElementById("out_latin").innerText = ascii2latin(text)
+        }
+        window.addEventListener('DOMContentLoaded', () => update())
+    </script>
+</body>
+
+</html>
