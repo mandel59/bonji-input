@@ -57,6 +57,9 @@ const ascii_latin = {
     ".s": "ṣ",
     "s": "s",
     "h": "h",
+    // variants of aa
+    "ua": "ua",
+    "uaa": "uā",
 }
 
 const siddham_ivowels = {
@@ -78,6 +81,9 @@ const siddham_ivowels = {
     "ai": "\u{1158b}",
     "o": "\u{1158c}",
     "au": "\u{1158d}",
+    // variants of aa
+    "ua": "\u{11580}\u{115b2}",
+    "uaa": "\u{11581}\u{115b2}",
 }
 
 const siddham_dvowels = {
@@ -95,6 +101,8 @@ const siddham_dvowels = {
     "ai": "\u{115b9}",
     "o": "\u{115ba}",
     "au": "\u{115bb}",
+    // variant of aa
+    "uaa": "\u{115b2}\u{115af}",
 }
 
 const siddham_signs = {
@@ -173,6 +181,7 @@ function ascii2siddham(s) {
             } else if (!cont && t in siddham_ivowels) {
                 yield siddham_ivowels[t]
             } else if (t in siddham_signs) {
+                cont = false
                 yield siddham_signs[t]
             } else {
                 if (cont) {
