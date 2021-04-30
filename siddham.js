@@ -106,7 +106,6 @@ const siddham_dvowels = {
 }
 
 const siddham_signs = {
-    ":": "",
     "~m": "\u{115bc}",
     ";m": "\u{115bd}",
     ".h": "\u{115be}",
@@ -181,14 +180,15 @@ function ascii2siddham(s) {
             } else if (!cont && t in siddham_ivowels) {
                 yield siddham_ivowels[t]
             } else if (t in siddham_signs) {
-                cont = false
                 yield siddham_signs[t]
             } else {
                 if (cont) {
                     yield siddham_virama
                     cont = false
                 }
-                yield t
+                if (t !== ":") {
+                    yield t
+                }
             }
         }
         if (cont) {
