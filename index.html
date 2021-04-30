@@ -4,17 +4,25 @@
 <title>梵字を入力するやつ</title>
 <script src="siddham.js"></script>
 <style>
+    body {
+        margin: 1em 2em;
+    }
+
     #out_latin {
+        width: 100%;
         margin: 0.5em 0;
         font-family: 'Times New Roman', serif;
         font-size: 200%;
         white-space: pre-wrap;
+        overflow-wrap: anywhere;
     }
 
     #out_siddham {
+        width: 100%;
         font-size: 400%;
         font-family: 'Noto Sans Siddham', sans-serif;
         white-space: pre-wrap;
+        overflow-wrap: anywhere;
     }
 </style>
 
@@ -23,7 +31,7 @@
         <a href="https://github.com/mandel59/bonji-input#readme">README</a>
     </header>
     <h1>梵字を入力するやつ</h1>
-    <input type="text" id="in_text" oninput="update();">
+    <textarea id="in_text" oninput="update();"></textarea>
     <div id="out_latin"></div>
     <div id="out_siddham"></div>
     <script>

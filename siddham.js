@@ -146,16 +146,16 @@ function escapeRegExp(s) {
     return s.replace(/([-\\\[\]()|.+*?^$])/g, "\\$1")
 }
 
-const re = new RegExp(
+const parser_re = new RegExp(
     Array.from(new Set(Object.keys(ascii_latin)))
         .sort((x, y) => y.length - x.length)
         .map(escapeRegExp)
-        .join('|') + "|.", "uy")
+        .join('|') + "|[\\s\\S]", "uy")
 
 function ascii2siddham(s) {
     return Array.from(parser(s)).join("")
     function* parser(s) {
-        const r = new RegExp(re)
+        const r = new RegExp(parser_re)
         let cont = false
         while (true) {
             const m = r.exec(s)
@@ -191,7 +191,7 @@ function ascii2siddham(s) {
 function ascii2latin(s) {
     return Array.from(parser(s)).join("")
     function* parser(s) {
-        const r = new RegExp(re)
+        const r = new RegExp(parser_re)
         while (true) {
             const m = r.exec(s)
             if (!m) break
