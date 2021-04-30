@@ -10,6 +10,17 @@ ISO 15919 の ASCII 翻字で入力すると、ダイアクリティカルマー
 
 The MIT License. See [LICENSE](./LICENSE).
 
+## フォントのインストール
+
+梵字が正常に表示されない場合は Noto Sans Siddham フォントをインストールしてください。
+
+次のリンクからフォントをダウンロードできます。（[Noto Fonts](https://github.com/googlefonts/noto-fonts)リポジトリにあるファイルです。[ライセンス](https://github.com/googlefonts/noto-fonts/blob/main/LICENSE)に従って利用してください。）
+
+- Windows環境用 ヒント済み TTF [Download NotoSansSiddham-Regular.ttf](https://github.com/googlefonts/noto-fonts/raw/main/hinted/ttf/NotoSansSiddham/NotoSansSiddham-Regular.ttf)
+- ヒントなし OTF [Download NotoSansSiddham-Regular.otf](https://github.com/googlefonts/noto-fonts/raw/main/unhinted/otf/NotoSansSiddham/NotoSansSiddham-Regular.otf)
+
+macOS Big Sur の場合は最初から Noto Sans Siddham フォントが付属しているので、フォントのインストール作業は不要です。
+
 ## 入力例
 
 |入力|出力（翻字）|出力（梵字）|
@@ -44,6 +55,15 @@ The MIT License. See [LICENSE](./LICENSE).
 - 母音を区切る場合は間にコロン（`:`）を入力します。
     - `ai` → 𑖋
     - `a:i` → 𑖀𑖂
+
+## スタイル
+
+`ss01`〜`ss04`オプションを切り替えることで、梵字のスタイルを一部変更できます。
+
+Noto Sans Siddham 2.001 は次のスタイル変更に対応しています。
+
+- `ss03`: `ai` の形が変わります。
+- `ss04`: 種子字の特殊なリガチャが有効になります。
 
 ## ASCII 対応表
 
