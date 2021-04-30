@@ -179,6 +179,7 @@ function ascii2siddham(s) {
                 cont = false
             } else if (!cont && t in siddham_ivowels) {
                 yield siddham_ivowels[t]
+                cont = false
             } else if (t in siddham_signs) {
                 yield siddham_signs[t]
             } else {
