@@ -31,14 +31,28 @@
         <a href="https://github.com/mandel59/bonji-input#readme">README</a>
     </header>
     <h1>梵字を入力するやつ</h1>
+    <div>
+        <label><input type="checkbox" class="option_style" id="option_ss01" value="ss01" onchange="update();">ss01</label>
+        <label><input type="checkbox" class="option_style" id="option_ss02" value="ss02" onchange="update();">ss02</label>
+        <label><input type="checkbox" class="option_style" id="option_ss03" value="ss03" onchange="update();">ss03</label>
+        <label><input type="checkbox" class="option_style" id="option_ss03" value="ss04" onchange="update();">ss04</label>
+    </div>
     <textarea id="in_text" oninput="update();"></textarea>
     <div id="out_latin"></div>
     <div id="out_siddham"></div>
     <script>
         function update() {
             const text = latin2ascii(ascii2symbol(document.getElementById("in_text").value))
-            document.getElementById("out_siddham").innerText = ascii2siddham(text)
+            const out_siddham = document.getElementById("out_siddham")
+            out_siddham.innerText = ascii2siddham(text)
             document.getElementById("out_latin").innerText = ascii2latin(text)
+            const fontFeatureSettings = []
+            for (const cb of
+                /** @type {NodeListOf<HTMLInputElement>} */
+                (document.getElementsByClassName("option_style"))) {
+                fontFeatureSettings.push(`"${cb.value}" ${Number(cb.checked)}`)
+            }
+            out_siddham.style.fontFeatureSettings = fontFeatureSettings.join(", ")
         }
         window.addEventListener('DOMContentLoaded', () => update())
     </script>
