@@ -102,3 +102,19 @@ The MIT License. See [LICENSE](./LICENSE).
 |`.s`|ṣ|
 |`s`|s|
 |`h`|h|
+
+## 記号入力法
+
+以下の入力法で記号が使えます。
+
+|入力|記号|名前|
+|:-:|:-:|:--|
+|`--`|𑗁|SIDDHAM SIGN SIDDHAM|
+|`,,`|𑗂|SIDDHAM DANDA|
+|`..`|𑗃|SIDDHAM DOUBLE DANDA|
+|`*`|𑗄|SIDDHAM SEPARATOR DOT|
+|`|`|𑗅|SIDDHAM SEPARATOR BAR|
+|`||`|𑗉|SIDDHAM END OF TEXT MARK|
+|`2`|𑗆|SIDDHAM REPETITION MARK-1|
+|`@`|𑗇|SIDDHAM REPETITION MARK-2|
+|`=`|𑗈|SIDDHAM REPETITION MARK-3|

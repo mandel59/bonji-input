@@ -28,7 +28,7 @@
     <div id="out_siddham"></div>
     <script>
         function update() {
-            const text = latin2ascii(document.getElementById("in_text").value)
+            const text = latin2ascii(ascii2symbol(document.getElementById("in_text").value))
             document.getElementById("out_siddham").innerText = ascii2siddham(text)
             document.getElementById("out_latin").innerText = ascii2latin(text)
         }

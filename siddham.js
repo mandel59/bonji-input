@@ -143,7 +143,7 @@ const siddham_consonants = {
 }
 
 function escapeRegExp(s) {
-    return s.replace(/([-\\\[\]().+?])/g, "\\$1")
+    return s.replace(/([-\\\[\]()|.+*?^$])/g, "\\$1")
 }
 
 const re = new RegExp(
@@ -278,4 +278,28 @@ const latin_replace_pattern = new RegExp(
 
 function latin2ascii(/** @type {string} */ s) {
     return s.normalize().replace(latin_replace_pattern, (c) => latin_ascii[c])
+}
+
+const ascii_symbol = {
+    "--": "\u{115c1}",
+    ",,": "\u{115c2}",
+    "..": "\u{115c3}",
+    "*": "\u{115c4}",
+    "|": "\u{115c5}",
+    "||": "\u{115c9}",
+    "2": "\u{115c6}",
+    "@": "\u{115c7}",
+    "=": "\u{115c8}",
+}
+
+const symbol_replace_pattern = Object.keys(ascii_symbol)
+    .sort((x, y) => y.length - x.length)
+    .map(escapeRegExp)
+    .join("|")
+
+const symbol_replace_pattern_re = new RegExp(
+    symbol_replace_pattern, "g")
+
+function ascii2symbol(/** @type {string} */ s) {
+    return s.replace(symbol_replace_pattern_re, (c) => ascii_symbol[c])
 }
