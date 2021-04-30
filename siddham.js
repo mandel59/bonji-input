@@ -150,12 +150,12 @@ const re = new RegExp(
     Array.from(new Set(Object.keys(ascii_latin)))
         .sort((x, y) => y.length - x.length)
         .map(escapeRegExp)
-        .join('|') + "|.", "u")
+        .join('|') + "|.", "uy")
 
 function ascii2siddham(s) {
     return Array.from(parser(s)).join("")
     function* parser(s) {
-        const r = new RegExp(re, "y")
+        const r = new RegExp(re)
         let cont = false
         while (true) {
             const m = r.exec(s)
@@ -191,7 +191,7 @@ function ascii2siddham(s) {
 function ascii2latin(s) {
     return Array.from(parser(s)).join("")
     function* parser(s) {
-        const r = new RegExp(re, "uy")
+        const r = new RegExp(re)
         while (true) {
             const m = r.exec(s)
             if (!m) break
