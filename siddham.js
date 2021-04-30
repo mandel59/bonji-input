@@ -204,3 +204,78 @@ function ascii2latin(s) {
         }
     }
 }
+
+const latin_ascii = {
+    ":": ":",
+    "a": "a",
+    "ā": "aa",
+    "i": "i",
+    "ī": "ii",
+    "i\u{0333}": "__i",
+    "i\u{0332}": "_i",
+    "ī\u{0332}": "_ii",
+    "u": "u",
+    "ū": "uu",
+    "u\u{0332}": "_u",
+    "ū\u{0332}": "_uu",
+    "r̥": ",r",
+    "r̥̄": ",rr",
+    "l̥": ",l",
+    "l̥̄": ",ll",
+    "e": "e",
+    "ai": "ai",
+    "o": "o",
+    "au": "au",
+    "m̐": "~m",
+    "ṁ": ";m",
+    "ḥ": ".h",
+    "k": "k",
+    "kh": "kh",
+    "g": "g",
+    "gh": "gh",
+    "ṅ": ";n",
+    "c": "c",
+    "ch": "ch",
+    "j": "j",
+    "jh": "jh",
+    "ñ": "~n",
+    "ṭ": ".t",
+    "ṭh": ".th",
+    "ḍ": ".d",
+    "ḍh": ".dh",
+    "ṇ": ".n",
+    "t": "t",
+    "th": "th",
+    "d": "d",
+    "dh": "dh",
+    "n": "n",
+    "p": "p",
+    "ph": "ph",
+    "b": "b",
+    "bh": "bh",
+    "m": "m",
+    "y": "y",
+    "r": "r",
+    "l": "l",
+    "v": "v",
+    "ś": ";s",
+    "ṣ": ".s",
+    "s": "s",
+    "h": "h",
+    // IAST compat
+    "ṛ": ",r",
+    "ṝ": ",rr",
+    "ḷ": ",l",
+    "ḹ": ",l",
+    "ṃ": ";m",
+}
+
+const latin_replace_pattern = new RegExp(
+    Object.keys(latin_ascii)
+        .sort((x, y) => y.length - x.length)
+        .map(escapeRegExp)
+        .join("|"), "ug")
+
+function latin2ascii(/** @type {string} */ s) {
+    return s.normalize().replace(latin_replace_pattern, (c) => latin_ascii[c])
+}
