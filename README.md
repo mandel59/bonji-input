@@ -1,6 +1,6 @@
 # bonji-input
 
-[梵字を入力するやつ](https://mandel59.github.io/bonji-input/)
+[梵字を入力するやつ Siddham (Bonji) Input](https://mandel59.github.io/bonji-input/)
 
 Input Siddhaṁ script using your ASCII keyboard.
 
@@ -10,14 +10,20 @@ ISO 15919 の ASCII 翻字で入力すると、ダイアクリティカルマー
 
 The MIT License. See [LICENSE](./LICENSE).
 
-## フォントのインストール
+## Install Noto Sans Siddham font / フォントのインストール
+
+Install Noto Sans Siddham if Siddham letters not rendered properly.
 
 梵字が正常に表示されない場合は Noto Sans Siddham フォントをインストールしてください。
 
+You can download the font from the following links. (The font of [Noto Fonts](https://github.com/googlefonts/noto-fonts) repository. See [LICENSE](https://github.com/googlefonts/noto-fonts/blob/main/LICENSE).)
+
 次のリンクからフォントをダウンロードできます。（[Noto Fonts](https://github.com/googlefonts/noto-fonts)リポジトリにあるファイルです。[ライセンス](https://github.com/googlefonts/noto-fonts/blob/main/LICENSE)に従って利用してください。）
 
-- Windows環境用 ヒント済み TTF [Download NotoSansSiddham-Regular.ttf](https://github.com/googlefonts/noto-fonts/raw/main/hinted/ttf/NotoSansSiddham/NotoSansSiddham-Regular.ttf)
-- ヒントなし OTF [Download NotoSansSiddham-Regular.otf](https://github.com/googlefonts/noto-fonts/raw/main/unhinted/otf/NotoSansSiddham/NotoSansSiddham-Regular.otf)
+- For Windows: hinted TTF [Download NotoSansSiddham-Regular.ttf](https://github.com/googlefonts/noto-fonts/raw/main/hinted/ttf/NotoSansSiddham/NotoSansSiddham-Regular.ttf)
+- unhinted OTF [Download NotoSansSiddham-Regular.otf](https://github.com/googlefonts/noto-fonts/raw/main/unhinted/otf/NotoSansSiddham/NotoSansSiddham-Regular.otf)
+
+macOS Big Sur users don't need to install Noto Sans Siddham because the font is included with the OS.
 
 macOS Big Sur の場合は最初から Noto Sans Siddham フォントが付属しているので、フォントのインストール作業は不要です。
 
