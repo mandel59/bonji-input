@@ -107,6 +107,7 @@ const siddham_signs = {
 }
 
 const siddham_virama = "\u{115bf}"
+const zwnj = "\u{200c}"
 
 const siddham_consonants = {
     "k": "\u{1158e}",
@@ -182,14 +183,18 @@ function ascii2siddham(s, { ignoreSpacesAndHyphens = false } = {}) {
                 yield siddham_signs[t]
             } else if (t === "+") {
                 cont = true
+            } else if (t === ":") {
+                if (cont) {
+                    yield siddham_virama
+                    yield zwnj
+                    cont = false
+                }
             } else {
                 if (cont) {
                     yield siddham_virama
                     cont = false
                 }
-                if (t !== ":") {
-                    yield t
-                }
+                yield t
             }
         }
         if (cont) {
