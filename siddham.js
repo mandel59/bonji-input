@@ -1,6 +1,8 @@
 // SPDX-License-Identifier: MIT
 
 const ascii_latin = {
+    " ": " ",
+    "-": "-",
     ":": ":",
     "+": "+",
     "a": "a",
@@ -143,7 +145,7 @@ const siddham_consonants = {
 }
 
 function escapeRegExp(s) {
-    return s.replace(/([-\\\[\]()|.+*?^$])/g, "\\$1")
+    return s.replace(/([\\\[\]()|.+*?^$])/g, "\\$1")
 }
 
 const parser_re = new RegExp(
@@ -152,7 +154,7 @@ const parser_re = new RegExp(
         .map(escapeRegExp)
         .join('|') + "|[\\s\\S]", "uy")
 
-function ascii2siddham(s) {
+function ascii2siddham(s, { ignoreSpacesAndHyphens = false } = {}) {
     return Array.from(parser(s)).join("")
     function* parser(s) {
         const r = new RegExp(parser_re)
@@ -161,6 +163,9 @@ function ascii2siddham(s) {
             const m = r.exec(s)
             if (!m) break
             const t = m[0]
+            if (ignoreSpacesAndHyphens && (t === " " || t === "-")) {
+                continue
+            }
             if (!cont && t in siddham_consonants) {
                 yield siddham_consonants[t]
                 cont = true

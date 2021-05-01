@@ -36,6 +36,9 @@
     </header>
     <h1>梵字を入力するやつ <small>Siddham (Bonji) Input</small></h1>
     <div>
+        <label><input type="checkbox" id="option_ignore" value="ignore" onchange="update();" checked>Ignore spaces and hyphens</label>
+    </div>
+    <div>
         <label><input type="checkbox" class="option_style" id="option_ss01" value="ss01" onchange="update();">ss01</label>
         <label><input type="checkbox" class="option_style" id="option_ss02" value="ss02" onchange="update();">ss02</label>
         <label><input type="checkbox" class="option_style" id="option_ss03" value="ss03" onchange="update();">ss03</label>
@@ -46,9 +49,10 @@
     <div id="out_siddham"></div>
     <script>
         function update() {
-            const text = latin2ascii(ascii2symbol(document.getElementById("in_text").value))
+            const ignoreSpacesAndHyphens = document.getElementById("option_ignore").checked
+            const text = latin2ascii(ascii2symbol(document.getElementById("in_text").value.toLowerCase()))
             const out_siddham = document.getElementById("out_siddham")
-            out_siddham.innerText = ascii2siddham(text)
+            out_siddham.innerText = ascii2siddham(text, { ignoreSpacesAndHyphens })
             document.getElementById("out_latin").innerText = ascii2latin(text)
             const fontFeatureSettings = []
             for (const cb of
