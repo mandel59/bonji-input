@@ -26,9 +26,10 @@
         width: 100%;
         line-height: 2.5em;
         font-size: 400%;
-        font-family: 'Noto Sans Siddham', sans-serif;
+        font-family: var(--siddham-font), sans-serif;
         white-space: pre-wrap;
         overflow-wrap: anywhere;
+        --siddham-font: 'Noto Sans Siddham';
     }
 </style>
 
@@ -39,6 +40,16 @@
     <h1>梵字を入力するやつ <small>Siddham (Bonji) Input</small></h1>
     <div>
         <label><input type="checkbox" id="option_ignore" value="ignore" onchange="update();" checked>Ignore spaces and hyphens</label>
+    </div>
+    <div>
+        <label>
+            Font
+            <select id="option_siddham-font" onchange="update();">
+                <option value="Noto Sans Siddham" selected>Noto Sans Siddham</option>
+                <option value="ApSiddham">ApSiddham</option>
+                <option value="Muktamsiddham">Muktamsiddham</option>
+            </select>
+        </label>
     </div>
     <div>
         <label><input type="checkbox" class="option_style" id="option_ss01" value="ss01" onchange="update();">ss01</label>
@@ -64,8 +75,10 @@
                 fontFeatureSettings.push(`"${cb.value}" ${Number(cb.checked)}`)
             }
             out_siddham.style.fontFeatureSettings = fontFeatureSettings.join(", ")
+            out_siddham.style.setProperty("--siddham-font", document.getElementById("option_siddham-font").value)
         }
         window.update = update
+        window.addEventListener("DOMContentLoaded", () => update())
     </script>
 </body>
 
