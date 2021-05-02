@@ -151,3 +151,19 @@ Noto Sans Siddham 2.001 は次のスタイル変更に対応しています。
 |`2`|𑗆|SIDDHAM REPETITION MARK-1|
 |`@`|𑗇|SIDDHAM REPETITION MARK-2|
 |`=`|𑗈|SIDDHAM REPETITION MARK-3|
+
+## CLI Utility
+
+### Install
+
+Install [Deno](https://deno.land/) and run the following command:
+
+```shellscript
+deno install https://mandel59.github.io/bonji-input/siddhamconv.js
+```
+
+### Usage
+
+```shellscript
+echo "siddha;m" | siddhamconv > out.txt
+```
