@@ -155,7 +155,7 @@ const parser_re = new RegExp(
         .map(escapeRegExp)
         .join('|') + "|[\\s\\S]", "uy")
 
-function ascii2siddham(s, { ignoreSpacesAndHyphens = false } = {}) {
+export function ascii2siddham(s, { ignoreSpacesAndHyphens = false } = {}) {
     return Array.from(parser(s)).join("")
     function* parser(s) {
         const r = new RegExp(parser_re)
@@ -203,7 +203,7 @@ function ascii2siddham(s, { ignoreSpacesAndHyphens = false } = {}) {
     }
 }
 
-function ascii2latin(s) {
+export function ascii2latin(s) {
     return Array.from(parser(s)).join("")
     function* parser(s) {
         const r = new RegExp(parser_re)
@@ -291,7 +291,7 @@ const latin_replace_pattern = new RegExp(
         .map(escapeRegExp)
         .join("|"), "ug")
 
-function latin2ascii(/** @type {string} */ s) {
+export function latin2ascii(/** @type {string} */ s) {
     return s.normalize().replace(latin_replace_pattern, (c) => latin_ascii[c])
 }
 
@@ -315,6 +315,6 @@ const symbol_replace_pattern = Object.keys(ascii_symbol)
 const symbol_replace_pattern_re = new RegExp(
     symbol_replace_pattern, "g")
 
-function ascii2symbol(/** @type {string} */ s) {
+export function ascii2symbol(/** @type {string} */ s) {
     return s.replace(symbol_replace_pattern_re, (c) => ascii_symbol[c])
 }

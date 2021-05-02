@@ -2,7 +2,6 @@
 <html>
 <meta charset="utf-8">
 <title>梵字入力 Siddham Input</title>
-<script src="siddham.js"></script>
 <style>
     body {
         margin: 1em 2em;
@@ -50,7 +49,8 @@
     <textarea id="in_text" oninput="update();"></textarea>
     <div id="out_latin"></div>
     <div id="out_siddham"></div>
-    <script>
+    <script type="module">
+        import { ascii2latin, ascii2siddham, ascii2symbol, latin2ascii } from "./siddham.js"
         function update() {
             const ignoreSpacesAndHyphens = document.getElementById("option_ignore").checked
             const text = latin2ascii(ascii2symbol(document.getElementById("in_text").value.toLowerCase()))
@@ -65,7 +65,7 @@
             }
             out_siddham.style.fontFeatureSettings = fontFeatureSettings.join(", ")
         }
-        window.addEventListener('DOMContentLoaded', () => update())
+        window.update = update
     </script>
 </body>
 
