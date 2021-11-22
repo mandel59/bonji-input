@@ -39,6 +39,16 @@
         overflow-wrap: anywhere;
         --siddham-font: 'Noto Sans Siddham';
     }
+
+    #out_codepoints {
+        width: 100%;
+        margin: 0.5em 0;
+        line-height: 1.5em;
+        font-family: monospace;
+        font-size: 100%;
+        white-space: pre-wrap;
+        overflow-wrap: anywhere;
+    }
 </style>
 
 <body>
@@ -68,26 +78,8 @@
     <textarea id="in_text" oninput="update();"></textarea>
     <div id="out_latin"></div>
     <div id="out_siddham"></div>
-    <script type="module">
-        import { ascii2latin, ascii2siddham, ascii2symbol, latin2ascii } from "./siddham.js"
-        function update() {
-            const ignoreSpacesAndHyphens = document.getElementById("option_ignore").checked
-            const text = latin2ascii(ascii2symbol(document.getElementById("in_text").value.toLowerCase()))
-            const out_siddham = document.getElementById("out_siddham")
-            out_siddham.innerText = ascii2siddham(text, { ignoreSpacesAndHyphens })
-            document.getElementById("out_latin").innerText = ascii2latin(text)
-            const fontFeatureSettings = []
-            for (const cb of
-                /** @type {NodeListOf<HTMLInputElement>} */
-                (document.getElementsByClassName("option_style"))) {
-                fontFeatureSettings.push(`"${cb.value}" ${Number(cb.checked)}`)
-            }
-            out_siddham.style.fontFeatureSettings = fontFeatureSettings.join(", ")
-            out_siddham.style.setProperty("--siddham-font", document.getElementById("option_siddham-font").value)
-        }
-        window.update = update
-        window.addEventListener("DOMContentLoaded", () => update())
-    </script>
+    <div id="out_codepoints"></div>
+    <script type="module" src="./siddham-input.js"></script>
 </body>
 
 </html>
