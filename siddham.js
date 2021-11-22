@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: MIT
 
+/** @type {Record<string, string>} */
 const ascii_latin = {
     " ": " ",
     "-": "-",
@@ -62,6 +63,7 @@ const ascii_latin = {
     "h": "h",
 }
 
+/** @type {Record<string, string>} */
 const siddham_ivowels = {
     "a": "\u{11580}",
     "aa": "\u{11581}",
@@ -83,6 +85,7 @@ const siddham_ivowels = {
     "au": "\u{1158d}",
 }
 
+/** @type {Record<string, string>} */
 const siddham_dvowels = {
     "a": "",
     "aa": "\u{115af}",
@@ -100,6 +103,7 @@ const siddham_dvowels = {
     "au": "\u{115bb}",
 }
 
+/** @type {Record<string, string>} */
 const siddham_signs = {
     "~m": "\u{115bc}",
     ";m": "\u{115bd}",
@@ -109,6 +113,7 @@ const siddham_signs = {
 const siddham_virama = "\u{115bf}"
 const zwnj = "\u{200c}"
 
+/** @type {Record<string, string>} */
 const siddham_consonants = {
     "k": "\u{1158e}",
     "kh": "\u{1158f}",
@@ -145,7 +150,7 @@ const siddham_consonants = {
     "h": "\u{115ae}",
 }
 
-function escapeRegExp(s) {
+function escapeRegExp(/** @type {string} */ s) {
     return s.replace(/([\\\[\]()|.+*?^$])/g, "\\$1")
 }
 
@@ -155,11 +160,12 @@ const parser_re = new RegExp(
         .map(escapeRegExp)
         .join('|') + "|[\\s\\S]", "uy")
 
-export function ascii2siddham(s, { ignoreSpacesAndHyphens = false } = {}) {
+export function ascii2siddham(/** @type {string} */ s, { ignoreSpacesAndHyphens = false } = {}) {
     return Array.from(parser(s)).join("")
-    function* parser(s) {
+    function* parser(/** @type {string} */ s) {
         const r = new RegExp(parser_re)
         let cont = false
+        let nonjoin = false
         while (true) {
             const m = r.exec(s)
             if (!m) break
@@ -168,44 +174,59 @@ export function ascii2siddham(s, { ignoreSpacesAndHyphens = false } = {}) {
                 continue
             }
             if (!cont && t in siddham_consonants) {
+                if (nonjoin) {
+                    yield zwnj
+                    nonjoin = false
+                }
                 yield siddham_consonants[t]
                 cont = true
             } else if (cont && t in siddham_consonants) {
                 yield siddham_virama
                 yield siddham_consonants[t]
+                nonjoin = false
             } else if (cont && t in siddham_dvowels) {
                 yield siddham_dvowels[t]
                 cont = false
+                nonjoin = false
             } else if (!cont && t in siddham_ivowels) {
                 yield siddham_ivowels[t]
                 cont = false
+                nonjoin = false
             } else if (t in siddham_signs) {
                 yield siddham_signs[t]
+                nonjoin = false
             } else if (t === "+") {
                 cont = true
+                nonjoin = false
             } else if (t === ":") {
                 if (cont) {
                     yield siddham_virama
                     yield zwnj
                     cont = false
+                    nonjoin = false
+                } else {
+                    nonjoin = true
                 }
             } else {
                 if (cont) {
                     yield siddham_virama
+                    yield zwnj
                     cont = false
                 }
+                nonjoin = false
                 yield t
             }
         }
         if (cont) {
             yield siddham_virama
+            yield zwnj
         }
     }
 }
 
-export function ascii2latin(s) {
+export function ascii2latin(/** @type {string} */ s) {
     return Array.from(parser(s)).join("")
-    function* parser(s) {
+    function* parser(/** @type {string} */ s) {
         const r = new RegExp(parser_re)
         while (true) {
             const m = r.exec(s)
@@ -220,6 +241,7 @@ export function ascii2latin(s) {
     }
 }
 
+/** @type {Record<string, string>} */
 const latin_ascii = {
     ":": ":",
     "a": "a",
@@ -295,6 +317,7 @@ export function latin2ascii(/** @type {string} */ s) {
     return s.normalize().replace(latin_replace_pattern, (c) => latin_ascii[c])
 }
 
+/** @type {Record<string, string>} */
 const ascii_symbol = {
     "--": "\u{115c1}",
     ",,": "\u{115c2}",
