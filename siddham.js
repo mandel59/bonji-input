@@ -61,6 +61,10 @@ const ascii_latin = {
     ".s": "ṣ",
     "s": "s",
     "h": "h",
+    // Extended Siddham
+    "z": "z",
+    "f": "f",
+    "w": "w",
 }
 
 /** @type {Record<string, string>} */
@@ -148,6 +152,10 @@ const siddham_consonants = {
     ".s": "\u{115ac}",
     "s": "\u{115ad}",
     "h": "\u{115ae}",
+    // Extended Siddham
+    "z": "\u{11595}\u{115c0}",
+    "f": "\u{115a3}\u{115c0}",
+    "w": "\u{115aa}\u{115c0}",
 }
 
 function escapeRegExp(/** @type {string} */ s) {
@@ -299,6 +307,10 @@ const latin_ascii = {
     "ṣ": ".s",
     "s": "s",
     "h": "h",
+    // Extended Siddham
+    "z": "z",
+    "f": "f",
+    "w": "w",
     // IAST compat
     "ṛ": ",r",
     "ṝ": ",rr",
