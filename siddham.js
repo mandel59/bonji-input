@@ -68,6 +68,16 @@ const ascii_latin = {
 }
 
 /** @type {Record<string, string>} */
+const ascii_iast = {
+    ...ascii_latin,
+    ",r": "ṛ",
+    ",rr": "ṝ",
+    ",l": "ḷ",
+    ",ll": "ḹ",
+    ";m": "ṃ",
+}
+
+/** @type {Record<string, string>} */
 const siddham_ivowels = {
     "a": "\u{11580}",
     "aa": "\u{11581}",
@@ -232,7 +242,16 @@ export function ascii2siddham(/** @type {string} */ s, { ignoreSpacesAndHyphens 
     }
 }
 
-export function ascii2latin(/** @type {string} */ s) {
+const latin_translitarations = {
+    ISO15919: ascii_latin,
+    IAST: ascii_iast,
+}
+
+export function ascii2latin(
+    /** @type {string} */ s,
+    /** @type {{ transliteration?: keyof typeof latin_translitarations }} */ options = {},
+) {
+    const map = latin_translitarations[options.transliteration ?? "ISO15919"]
     return Array.from(parser(s)).join("")
     function* parser(/** @type {string} */ s) {
         const r = new RegExp(parser_re)
@@ -240,8 +259,8 @@ export function ascii2latin(/** @type {string} */ s) {
             const m = r.exec(s)
             if (!m) break
             const t = m[0]
-            if (t in ascii_latin) {
-                yield ascii_latin[t]
+            if (t in map) {
+                yield map[t]
             } else {
                 yield t
             }
@@ -313,10 +332,15 @@ const latin_ascii = {
     "w": "w",
     // IAST compat
     "ṛ": ",r",
+    ".r": ",r",
     "ṝ": ",rr",
+    ".rr": ",rr",
     "ḷ": ",l",
+    ".l": ",l",
     "ḹ": ",ll",
+    ".ll": ",ll",
     "ṃ": ";m",
+    ".m": ";m",
 }
 
 const latin_replace_pattern = new RegExp(

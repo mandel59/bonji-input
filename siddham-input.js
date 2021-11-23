@@ -14,9 +14,11 @@ function update() {
                     .join(" ")
             })
             .join('\n')
-
+    const option_transliteration = /** @type {HTMLSelectElement} */ (document.getElementById("option_transliteration"))
     const out_latin = /** @type {HTMLElement} */ (document.getElementById("out_latin"))
-    out_latin.innerText = ascii2latin(text)
+    out_latin.innerText = ascii2latin(text, {
+        transliteration: /** @type {"ISO15919" | "IAST"} */ (option_transliteration.value)
+    })
     /** @type {string[]} */
     const fontFeatureSettings = []
     const option_styles = /** @type {HTMLCollectionOf<HTMLInputElement>} */ (document.getElementsByClassName("option_style"))
