@@ -15,5 +15,8 @@
         "editor.defaultFormatter": "vscode.typescript-language-features",
         "editor.tabSize": 4
     },
-    "html.format.wrapLineLength": 0
+    "html.format.wrapLineLength": 0,
+    "deno.enable": true,
+    "deno.lint": true,
+    "deno.unstable": true
 }
