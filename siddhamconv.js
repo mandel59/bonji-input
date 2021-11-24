@@ -1,4 +1,4 @@
-import { readLines } from "https://deno.land/std/io/mod.ts"
+import { readLines } from "https://deno.land/std@0.115.1/io/mod.ts"
 import { ascii2siddham, ascii2symbol, latin2ascii } from "./siddham.js"
 
 const newline = new Uint8Array(['\n'.codePointAt(0)])
