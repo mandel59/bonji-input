@@ -1,6 +1,6 @@
 # bonji-input
 
-[梵字を入力するやつ Siddham (Bonji) Input](https://mandel59.github.io/bonji-input/)
+[Bonji Input 梵字入力](https://mandel59.github.io/bonji-input/)
 
 Input Siddhaṁ script using your ASCII keyboard.
 
