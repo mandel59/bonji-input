@@ -1,94 +1,115 @@
 <!DOCTYPE html>
 <html>
-<meta charset="utf-8">
-<title>梵字入力 Siddham Input</title>
-<style>
-    @font-face {
-        font-family: "Noto Sans Siddham";
-        src:
-            local("Noto Sans Siddham"),
-            url("./Noto_Sans_Siddham/NotoSansSiddham-Regular.woff2") format("woff2"),
-            url("./Noto_Sans_Siddham/NotoSansSiddham-Regular.ttf") format("truetype");
-    }
 
-    body {
-        margin: 1em 2em;
+<head>
+  <meta charset="utf-8">
+  <title>Bonji Input 梵字入力</title>
+  <meta name="description" content="Input Siddhaṁ script using your ASCII keyboard.">
+  <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css">
+  <style>
+    @font-face {
+      font-family: "Noto Sans Siddham";
+      src:
+        local("Noto Sans Siddham"),
+        url("./Noto_Sans_Siddham/NotoSansSiddham-Regular.woff2") format("woff2"),
+        url("./Noto_Sans_Siddham/NotoSansSiddham-Regular.ttf") format("truetype");
     }
 
     #in_text {
-        font-family: 'Consolas', 'Courier', monospace;
-        line-height: 1.5em;
+      font-family: 'Consolas', 'Courier', monospace;
+      line-height: 1.5em;
+    }
+
+    #output {
+      padding: 0 1em;
     }
 
     #out_latin {
-        width: 100%;
-        margin: 0.5em 0;
-        line-height: 1.5em;
-        font-family: 'Times New Roman', serif;
-        font-size: 200%;
-        white-space: pre-wrap;
-        overflow-wrap: anywhere;
+      font-family: 'Times New Roman', serif;
+      font-size: 200%;
+      line-height: 1.5em;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
     }
 
     #out_siddham {
-        width: 100%;
-        line-height: 2.5em;
-        font-size: 400%;
-        font-family: var(--siddham-font), sans-serif;
-        white-space: pre-wrap;
-        overflow-wrap: anywhere;
-        --siddham-font: 'Noto Sans Siddham';
+      font-family: var(--siddham-font), sans-serif;
+      font-size: 400%;
+      line-height: 2.5em;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+      --siddham-font: 'Noto Sans Siddham';
     }
 
     #out_codepoints {
-        width: 100%;
-        margin: 0.5em 0;
-        line-height: 1.5em;
-        font-family: monospace;
-        font-size: 100%;
-        white-space: pre-wrap;
-        overflow-wrap: anywhere;
+      font-family: monospace;
+      font-size: 100%;
+      line-height: 1.5em;
+      font-size: 100%;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
     }
-</style>
+  </style>
+</head>
 
 <body>
-    <header>
-        <a href="https://github.com/mandel59/bonji-input#readme">README</a>
-    </header>
-    <h1>梵字を入力するやつ <small>Siddham (Bonji) Input</small></h1>
-    <div>
-        <label><input type="checkbox" id="option_ignore" value="ignore" onchange="update();" checked>Ignore spaces and hyphens</label>
-    </div>
-    <div>
-        <label>
-            Transliteration
-            <select id="option_transliteration" onchange="update();">
+  <main class="container">
+    <nav>
+      <ul>
+        <li>
+          <h1>Bonji Input 梵字入力</h1>
+        </li>
+      </ul>
+      <ul>
+        <li><a href="https://github.com/mandel59/bonji-input#readme">README</a></li>
+      </ul>
+    </nav>
+    <div class="grid">
+      <div>
+        <details>
+          <summary>Options</summary>
+          <div>
+            <label><input type="checkbox" role="switch" id="option_ignore" value="ignore" onchange="update();" checked>Ignore spaces and hyphens</label>
+          </div>
+          <div>
+            <label>
+              Transliteration
+              <select id="option_transliteration" onchange="update();">
                 <option value="ISO15919" selected>ISO 15919</option>
                 <option value="IAST">IAST</option>
-            </select>
-        </label>
-    </div>
-    <div>
-        <label>
-            Font
-            <select id="option_siddham-font" onchange="update();">
+              </select>
+            </label>
+          </div>
+          <div>
+            <label>
+              Font
+              <select id="option_siddham-font" onchange="update();">
                 <option value="Noto Sans Siddham" selected>Noto Sans Siddham</option>
                 <option value="ApSiddham">ApSiddham</option>
                 <option value="Muktamsiddham">Muktamsiddham</option>
-            </select>
-        </label>
+              </select>
+            </label>
+          </div>
+          <fieldset>
+            <legend>OpenType Features</legend>
+            <div class="grid">
+              <label><input type="checkbox" role="switch" class="option_style" id="option_ss01" value="ss01" onchange="update();">ss01</label>
+              <label><input type="checkbox" role="switch" class="option_style" id="option_ss02" value="ss02" onchange="update();">ss02</label>
+              <label><input type="checkbox" role="switch" class="option_style" id="option_ss03" value="ss03" onchange="update();">ss03</label>
+              <label><input type="checkbox" role="switch" class="option_style" id="option_ss03" value="ss04" onchange="update();">ss04</label>
+            </div>
+          </fieldset>
+        </details>
+        <textarea id="in_text" oninput="update();"></textarea>
+      </div>
+      <div id="output">
+        <div id="out_latin"></div>
+        <div id="out_siddham"></div>
+        <div id="out_codepoints"></div>
+      </div>
     </div>
-    <div>
-        <label><input type="checkbox" class="option_style" id="option_ss01" value="ss01" onchange="update();">ss01</label>
-        <label><input type="checkbox" class="option_style" id="option_ss02" value="ss02" onchange="update();">ss02</label>
-        <label><input type="checkbox" class="option_style" id="option_ss03" value="ss03" onchange="update();">ss03</label>
-        <label><input type="checkbox" class="option_style" id="option_ss03" value="ss04" onchange="update();">ss04</label>
-    </div>
-    <textarea id="in_text" oninput="update();"></textarea>
-    <div id="out_latin"></div>
-    <div id="out_siddham"></div>
-    <div id="out_codepoints"></div>
-    <script type="module" src="./siddham-input.js"></script>
+  </main>
+  <script type="module" src="./siddham-input.js"></script>
 </body>
 
 </html>

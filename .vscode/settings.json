@@ -8,11 +8,12 @@
         "editor.tabSize": 4
     },
     "[html]": {
-        "editor.defaultFormatter": null,
-        "editor.tabSize": 4
+        "editor.defaultFormatter": "vscode.html-language-features",
+        "editor.tabSize": 2
     },
     "[javascript]": {
         "editor.defaultFormatter": "vscode.typescript-language-features",
         "editor.tabSize": 4
-    }
+    },
+    "html.format.wrapLineLength": 0
 }
