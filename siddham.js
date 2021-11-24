@@ -61,6 +61,9 @@ const ascii_latin = {
     ".s": "ṣ",
     "s": "s",
     "h": "h",
+    // long vowels - Shiddham does not distinguish long and short e/o.
+    "ee": "e",
+    "oo": "o",
     // Extended Siddham
     "z": "z",
     "f": "f",
@@ -97,6 +100,9 @@ const siddham_ivowels = {
     "ai": "\u{1158b}",
     "o": "\u{1158c}",
     "au": "\u{1158d}",
+    // long vowels - Shiddham does not distinguish long and short e/o.
+    "ee": "\u{1158a}",
+    "oo": "\u{1158c}",
 }
 
 /** @type {Record<string, string>} */
@@ -115,6 +121,9 @@ const siddham_dvowels = {
     "ai": "\u{115b9}",
     "o": "\u{115ba}",
     "au": "\u{115bb}",
+    // long vowels - Shiddham does not distinguish long and short e/o.
+    "ee": "\u{115b8}",
+    "oo": "\u{115ba}",
 }
 
 /** @type {Record<string, string>} */
@@ -326,6 +335,9 @@ const latin_ascii = {
     "ṣ": ".s",
     "s": "s",
     "h": "h",
+    // long vowels - Shiddham does not distinguish long and short e/o.
+    "ē": "e",
+    "ō": "o",
     // Extended Siddham
     "z": "z",
     "f": "f",
