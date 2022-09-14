@@ -16,6 +16,13 @@
         url("./Noto_Sans_Siddham/NotoSansSiddham-Regular.ttf") format("truetype");
     }
 
+    @font-face {
+      font-family: "Noto Sans Siddham Web Font";
+      src:
+        url("./Noto_Sans_Siddham/NotoSansSiddham-Regular.woff2") format("woff2"),
+        url("./Noto_Sans_Siddham/NotoSansSiddham-Regular.ttf") format("truetype");
+    }
+
     h1 {
       word-break: keep-all;
     }
@@ -94,6 +101,7 @@
               Font
               <select id="option_siddham-font" onchange="update();">
                 <option value="Noto Sans Siddham" selected>Noto Sans Siddham</option>
+                <option value="Noto Sans Siddham Web Font">Noto Sans Siddham (Web Font)</option>
                 <option value="ApSiddham">ApSiddham</option>
                 <option value="Muktamsiddham">Muktamsiddham</option>
               </select>
