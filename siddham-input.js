@@ -29,6 +29,5 @@ function update() {
     const option_siddham_font = /** @type {HTMLSelectElement} */ (document.getElementById("option_siddham-font"))
     out_siddham.style.setProperty("--siddham-font", option_siddham_font.value)
 }
-// @ts-ignore
-window.update = update
-window.addEventListener("DOMContentLoaded", () => update())
+globalThis.update = update
+addEventListener("DOMContentLoaded", () => update())
