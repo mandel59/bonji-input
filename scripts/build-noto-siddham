@@ -3,6 +3,6 @@ set -eux
 cd "$(dirname "$0")/.."
 rm -rf public/Noto_Sans_Siddham
 mkdir -p public/Noto_Sans_Siddham
-cp var/NotoSansSiddham/OFL.txt public/OFL.txt
+cp var/NotoSansSiddham/OFL.txt public/Noto_Sans_Siddham/OFL.txt
 cp var/NotoSansSiddham/NotoSansSiddham/hinted/ttf/NotoSansSiddham-Regular.ttf public/Noto_Sans_Siddham/NotoSansSiddham-Regular.ttf
 woff2_compress public/Noto_Sans_Siddham/NotoSansSiddham-Regular.ttf
