@@ -1,0 +1,6 @@
+#!/bin/sh
+set -eux
+cd "$(dirname "$0")/.."
+rm -rf var/NotoSansSiddham
+mkdir -p var/NotoSansSiddham
+unzip cache/NotoSansSiddham-v2.004.zip -d var/NotoSansSiddham

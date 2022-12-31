@@ -1,0 +1,7 @@
+#!/bin/sh
+set -eux
+cd "$(dirname "$0")/.."
+mkdir -p cache
+curl -LsSf https://github.com/notofonts/siddham/releases/download/NotoSansSiddham-v2.004/NotoSansSiddham-v2.004.zip -o cache/NotoSansSiddham-v2.004.zip.tmp
+shasum -a 256 -c <<<'1ac3e6930e9a4f51dc98d7e336e608f95fdc9cb4cea1efc0a019cffbb657b9cb  cache/NotoSansSiddham-v2.004.zip.tmp'
+mv cache/NotoSansSiddham-v2.004.zip.tmp cache/NotoSansSiddham-v2.004.zip
