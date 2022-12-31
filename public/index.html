@@ -89,7 +89,16 @@
           </div>
           <div>
             <label>
-              Transliteration
+              Input method
+              <select id="option_input-method" onchange="update();">
+                <option value="ISO15919" selected>ISO 15919/IAST</option>
+                <option value="KH">Harvard-Kyoto Convention (KH)</option>
+              </select>
+            </label>
+          </div>
+          <div>
+            <label>
+              Transliteration (output)
               <select id="option_transliteration" onchange="update();">
                 <option value="ISO15919" selected>ISO 15919</option>
                 <option value="IAST">IAST</option>

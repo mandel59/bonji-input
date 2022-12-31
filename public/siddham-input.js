@@ -2,7 +2,8 @@ import { ascii2latin, ascii2siddham, ascii2symbol, latin2ascii } from "./siddham
 function update() {
     const ignoreSpacesAndHyphens = /** @type {HTMLInputElement} */ (document.getElementById("option_ignore")).checked
     const in_text = /** @type {HTMLTextAreaElement} */ (document.getElementById("in_text"))
-    const text = latin2ascii(ascii2symbol(in_text.value.toLowerCase()))
+    const option_input_method = /** @type {HTMLSelectElement} */ (document.getElementById("option_input-method"))
+    const text = latin2ascii(ascii2symbol(in_text.value), { inputMethod: /** @type {"ISO15919" | "KH"} */ option_input_method.value })
     const out_siddham = /** @type {HTMLElement} */ (document.getElementById("out_siddham"))
     out_siddham.innerText = ascii2siddham(text, { ignoreSpacesAndHyphens })
     const out_codepoints = /** @type {HTMLElement} */ (document.getElementById("out_codepoints"))

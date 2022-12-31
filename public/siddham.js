@@ -355,14 +355,98 @@ const latin_ascii = {
     ".m": ";m",
 }
 
-const latin_replace_pattern = new RegExp(
-    Object.keys(latin_ascii)
-        .sort((x, y) => y.length - x.length)
-        .map(escapeRegExp)
-        .join("|"), "ug")
+/** @type {Record<string, string>} */
+const kh_ascii = {
+    "a": "a",
+    "A": "aa",
+    "aa": "aa",
+    "i": "i",
+    "I": "ii",
+    "ii": "ii",
+    "u": "u",
+    "U": "uu",
+    "uu": "uu",
+    "R": ",r",
+    "q": ",rr",
+    "RR": ",rr",
+    "L": ",l",
+    "lR": ",l",
+    "E": ",ll",
+    "LL": ",ll",
+    "lRR": ",ll",
+    "e": "e",
+    "ai": "ai",
+    "o": "o",
+    "au": "au",
+    "M": ";m",
+    "~M": "~m",
+    "H": ".h",
+    "k": "k",
+    "kh": "kh",
+    "g": "g",
+    "gh": "gh",
+    "G": ";n",
+    "c": "c",
+    "ch": "ch",
+    "j": "j",
+    "jh": "jh",
+    "J": "~n",
+    "T": ".t",
+    "Th": ".th",
+    "D": ".d",
+    "Dh": ".dh",
+    "N": ".n",
+    "t": "t",
+    "th": "th",
+    "d": "d",
+    "dh": "dh",
+    "n": "n",
+    "p": "p",
+    "ph": "ph",
+    "b": "b",
+    "bh": "bh",
+    "m": "m",
+    "y": "y",
+    "r": "r",
+    "l": "l",
+    "v": "v",
+    "z": ";s",
+    "S": ".s",
+    "s": "s",
+    "h": "h",
+}
 
-export function latin2ascii(/** @type {string} */ s) {
-    return s.normalize().replace(latin_replace_pattern, (c) => latin_ascii[c])
+/**
+ * @param {Record<string, string>} m 
+ * @returns {(s: string) => string}
+ */
+function patternMapper(m) {
+    function replacePattern(/** @type {Record<string, string>} */ m) {
+        return new RegExp(
+            Object.keys(m)
+                .sort((x, y) => y.length - x.length)
+                .map(escapeRegExp)
+                .join("|"), "ug")
+    }
+    return (/** @type {string} */ s) => {
+        return s.replace(replacePattern(m), (c) => m[c])
+    }
+}
+
+const iso15919_mapper = patternMapper(latin_ascii)
+
+/** @type {Record<"ISO15919" | "KH", (s: string) => string} */
+const input_methods = {
+    ISO15919: (s) => iso15919_mapper(s.toLowerCase()),
+    KH: patternMapper(kh_ascii),
+}
+
+export function latin2ascii(
+    /** @type {string} */ s,
+    /** @type {{ inputMethod?: keyof typeof input_methods }} */ options = {},
+) {
+    const inputMethod = options.inputMethod ?? "ISO15919"
+    return input_methods[inputMethod](s.normalize())
 }
 
 /** @type {Record<string, string>} */
@@ -378,14 +462,4 @@ const ascii_symbol = {
     "=": "\u{115c8}",
 }
 
-const symbol_replace_pattern = Object.keys(ascii_symbol)
-    .sort((x, y) => y.length - x.length)
-    .map(escapeRegExp)
-    .join("|")
-
-const symbol_replace_pattern_re = new RegExp(
-    symbol_replace_pattern, "g")
-
-export function ascii2symbol(/** @type {string} */ s) {
-    return s.replace(symbol_replace_pattern_re, (c) => ascii_symbol[c])
-}
+export const ascii2symbol = patternMapper(ascii_symbol)
