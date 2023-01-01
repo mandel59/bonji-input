@@ -199,7 +199,7 @@ export function ascii2siddham(/** @type {string} */ s, { ignoreSpacesAndHyphens 
         let cont = false
         /**
          * Non-join flag.
-         * True if the previous token is a separator `"":""` and `cont` is not true.
+         * True if the previous token is a separator `"":""` and `cont` is true.
          * Yield ZWNJ if the current character token is a consonant.
          */
         let nonjoin = false
@@ -213,50 +213,44 @@ export function ascii2siddham(/** @type {string} */ s, { ignoreSpacesAndHyphens 
             if (!cont && t in siddham_consonants) {
                 if (nonjoin) {
                     yield zwnj
-                    nonjoin = false
                 }
                 yield siddham_consonants[t]
-                cont = true
+                void ([cont, nonjoin] = [true, false])
             } else if (cont && t in siddham_consonants) {
                 yield siddham_virama
                 yield siddham_consonants[t]
-                nonjoin = false
+                void ([cont, nonjoin] = [true, false])
             } else if (cont && t in siddham_dvowels) {
                 yield siddham_dvowels[t]
-                cont = false
-                nonjoin = false
+                void ([cont, nonjoin] = [false, false])
             } else if (!cont && t in siddham_ivowels) {
                 yield siddham_ivowels[t]
-                cont = false
-                nonjoin = false
+                void ([cont, nonjoin] = [false, false])
             } else if (t in siddham_signs) {
+                if (cont) {
+                    // invalid sequence: sign after consonant
+                    // yield virama and continue
+                    yield siddham_virama
+                }
                 yield siddham_signs[t]
-                nonjoin = false
+                void ([cont, nonjoin] = [false, false])
             } else if (t === "+") {
-                cont = true
-                nonjoin = false
+                [cont, nonjoin] = [true, false]
             } else if (t === ":") {
                 if (cont) {
                     yield siddham_virama
-                    yield zwnj
-                    cont = false
-                    nonjoin = false
-                } else {
-                    nonjoin = true
+                    void ([cont, nonjoin] = [false, true])
                 }
             } else {
                 if (cont) {
                     yield siddham_virama
-                    yield zwnj
-                    cont = false
                 }
-                nonjoin = false
                 yield t
+                void ([cont, nonjoin] = [false, false])
             }
         }
         if (cont) {
             yield siddham_virama
-            yield zwnj
         }
     }
 }
