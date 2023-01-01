@@ -227,6 +227,11 @@ export function ascii2siddham(/** @type {string} */ s, { ignoreSpacesAndHyphens 
                 yield siddham_ivowels[t]
                 void ([cont, nonjoin] = [false, false])
             } else if (t in siddham_signs) {
+                if (cont) {
+                    // invalid sequence: sign after consonant
+                    // yield virama and continue
+                    yield siddham_virama
+                }
                 yield siddham_signs[t]
                 void ([cont, nonjoin] = [false, false])
             } else if (t === "+") {
