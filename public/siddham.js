@@ -80,7 +80,7 @@ const ascii_iast = {
     ";m": "ṃ",
 }
 
-/** @type {Record<string, string>} */
+/** independent vowels (vowel letters) @type {Record<string, string>} */
 const siddham_ivowels = {
     "a": "\u{11580}",
     "aa": "\u{11581}",
@@ -105,7 +105,7 @@ const siddham_ivowels = {
     "oo": "\u{1158c}",
 }
 
-/** @type {Record<string, string>} */
+/** dependent vowels (vowel signs) @type {Record<string, string>} */
 const siddham_dvowels = {
     "a": "",
     "aa": "\u{115af}",
@@ -136,7 +136,7 @@ const siddham_signs = {
 const siddham_virama = "\u{115bf}"
 const zwnj = "\u{200c}"
 
-/** @type {Record<string, string>} */
+/** consonants @type {Record<string, string>} */
 const siddham_consonants = {
     "k": "\u{1158e}",
     "kh": "\u{1158f}",
@@ -191,7 +191,17 @@ export function ascii2siddham(/** @type {string} */ s, { ignoreSpacesAndHyphens 
     return Array.from(parser(s)).join("")
     function* parser(/** @type {string} */ s) {
         const r = new RegExp(parser_re)
+        /**
+         * Continuation flag.
+         * True if the previous character token is a consonant.
+         * Insert virama if this flag is set and the current character token is not a vowel.
+         */
         let cont = false
+        /**
+         * Non-join flag.
+         * True if the previous token is a separator `"":""` and `cont` is not true.
+         * Yield ZWNJ if the current character token is a consonant.
+         */
         let nonjoin = false
         while (true) {
             const m = r.exec(s)
