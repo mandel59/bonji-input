@@ -47,6 +47,38 @@ test("ascii2siddham/consonant cluster", () => {
     assertEquals(ascii2siddham("k.sa"), codePoints("U+1158E U+115BF U+115AC"))
 })
 
+test("ascii2siddham/sign", () => {
+    assertEquals(ascii2siddham("a~m"), codePoints("U+11580 U+115BC"))
+    assertEquals(ascii2siddham("a;m"), codePoints("U+11580 U+115BD"))
+    assertEquals(ascii2siddham("a.h"), codePoints("U+11580 U+115BE"))
+    assertEquals(ascii2siddham("ka~m"), codePoints("U+1158E U+115BC"))
+    assertEquals(ascii2siddham("ka;m"), codePoints("U+1158E U+115BD"))
+    assertEquals(ascii2siddham("ka.h"), codePoints("U+1158E U+115BE"))
+})
+
+test("ascii2siddham/virama", () => {
+    assertEquals(ascii2siddham("kakka"), codePoints("U+1158E U+1158E U+115BF U+1158E"))
+    assertEquals(ascii2siddham("k.sa"), codePoints("U+1158E U+115BF U+115AC"))
+})
+
+
+test("ascii2siddham/separation", () => {
+    assertEquals(ascii2siddham("k"), codePoints("U+1158E U+115BF"))
+    assertEquals(ascii2siddham("kk"), codePoints("U+1158E U+115BF U+1158E U+115BF"))
+})
+
+test("ascii2siddham/example", () => {
+    assertEquals(ascii2siddham("siddha;m"), codePoints("U+115AD U+115B0 U+1159F U+115BF U+115A0 U+115BD"))
+    assertEquals(ascii2siddham("va~m"), codePoints("U+115AA U+115BC"))
+    assertEquals(ascii2siddham("huu~m"), codePoints("U+115AE U+115B3 U+115BC"))
+    assertEquals(ascii2siddham("h_uu~m"), codePoints("U+115AE U+115DD U+115BC"))
+    assertEquals(ascii2siddham("hhuu~m"), codePoints("U+115AE U+115BF U+115AE U+115B3 U+115BC"))
+    assertEquals(ascii2siddham("stva;m"), codePoints("U+115AD U+115BF U+1159D U+115BF U+115AA U+115BD"))
+    assertEquals(ascii2siddham("hrii.h"), codePoints("U+115AE U+115BF U+115A8 U+115B1 U+115BE"))
+    assertEquals(ascii2siddham(";srii"), codePoints("U+115AB U+115BF U+115A8 U+115B1"))
+    assertEquals(ascii2siddham("yu"), codePoints("U+115A7 U+115B2"))
+    assertEquals(ascii2siddham("y_u.h"), codePoints("U+115A7 U+115DC U+115BE"))
+})
 
 test("ascii2siddham/a title", () => {
     assertEquals(ascii2siddham("saddharmapu.n.dariikasuutram"), codePoints("U+115AD U+1159F U+115BF U+115A0 U+115A8 U+115BF U+115A6 U+115A2 U+115B2 U+1159C U+115BF U+1159A U+115A8 U+115B1 U+1158E U+115AD U+115B3 U+1159D U+115BF U+115A8 U+115A6 U+115BF"))
