@@ -84,3 +84,8 @@ test("ascii2siddham/a title", () => {
     assertEquals(ascii2siddham("saddharmapu.n.dariikasuutram"), codePoints("U+115AD U+1159F U+115BF U+115A0 U+115A8 U+115BF U+115A6 U+115A2 U+115B2 U+1159C U+115BF U+1159A U+115A8 U+115B1 U+1158E U+115AD U+115B3 U+1159D U+115BF U+115A8 U+115A6 U+115BF"))
     assertEquals(ascii2siddham("aaryatriratnaanusm,rtisuutram"), codePoints("U+11581 U+115A8 U+115BF U+115A7 U+1159D U+115BF U+115A8 U+115B0 U+115A8 U+1159D U+115BF U+115A1 U+115AF U+115A1 U+115B2 U+115AD U+115BF U+115A6 U+115B4 U+1159D U+115B0 U+115AD U+115B3 U+1159D U+115BF U+115A8 U+115A6 U+115BF"))
 })
+
+test("ascii2siddham/invalid", () => {
+    assertEquals(ascii2siddham("h,r+ii.h"), codePoints("U+115AE U+115B4 U+115B1 U+115BE"))
+    assertEquals(ascii2siddham("k.h"), codePoints("U+1158E U+115BF U+115BE"))
+})
