@@ -68,6 +68,7 @@ const ascii_latin = {
     "z": "z",
     "f": "f",
     "w": "w",
+    ".l": "ḷ",
 }
 
 /** @type {Record<string, string>} */
@@ -175,6 +176,7 @@ const siddham_consonants = {
     "z": "\u{11595}\u{115c0}",
     "f": "\u{115a3}\u{115c0}",
     "w": "\u{115aa}\u{115c0}",
+    ".l": "\u{115a9}\u{115c0}",
 }
 
 function escapeRegExp(/** @type {string} */ s) {
