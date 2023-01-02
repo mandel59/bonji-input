@@ -11,6 +11,9 @@ const test = Deno.test
 
 test("devanagari2ascii/convert devanagari text", () => {
     assertEquals(devanagari2ascii("सद्धर्मपुण्डरीकसूत्रम्"), "saddharmapu.n.dariikasuutram")
+    assertEquals(devanagari2ascii("आर्यत्रिरत्नानुस्मृतिसूत्रम्"), "aaryatriratnaanusm,rtisuutram")
+    assertEquals(devanagari2ascii("महासत्त्वमणिचूडमहाराजबोधिसत्त्वावदानम्"), "mahaasattvama.nicuu.damahaaraajaboodhisattvaavadaanam")
+    assertEquals(devanagari2ascii("महावस्तु अवदानम्"), "mahaavastu avadaanam")
     assertEquals(devanagari2ascii("बौद्ध ग्रंथ"), "bauddha gra;mtha")
 })
 
