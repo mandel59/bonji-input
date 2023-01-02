@@ -75,7 +75,11 @@ export function devanagari2ascii(text) {
         for (const token of tokenizeDevanagari(text)) {
             const r = devanagariIndex.get(token)
             if (r == null) {
+                if (state === "consonant") {
+                    yield "a"
+                }
                 yield token
+                state = "none"
             } else if (r.type === "c") {
                 if (state === "consonant") {
                     yield "a"
@@ -91,6 +95,9 @@ export function devanagari2ascii(text) {
                 yield r.iso15919
                 state = "vowel"
             } else if (r.type === "s") {
+                if (state === "consonant") {
+                    yield "a"
+                }
                 yield r.iso15919
                 state = "none"
             }
