@@ -201,7 +201,7 @@ export function ascii2siddham(/** @type {string} */ s, { ignoreSpacesAndHyphens 
         let cont = false
         /**
          * Non-join flag.
-         * True if the previous token is a separator `"":""` and `cont` is true.
+         * True if the previous token is a separator `":"` and `cont` is true.
          * Yield ZWNJ if the current character token is a consonant.
          */
         let nonjoin = false
@@ -239,7 +239,16 @@ export function ascii2siddham(/** @type {string} */ s, { ignoreSpacesAndHyphens 
             } else if (t === "+") {
                 [cont, nonjoin] = [true, false]
             } else if (t === ":") {
-                if (cont) {
+                // detect colon not used as character separator
+                const rc = /(?:^|(?<=[\s:])):|:(?:$|(?=[\s:]))/uy
+                rc.lastIndex = r.lastIndex - 1
+                if (rc.test(s)) {
+                    if (cont) {
+                        yield siddham_virama
+                    }
+                    yield ":"
+                    void ([cont, nonjoin] = [false, false])
+                } else if (cont) {
                     yield siddham_virama
                     void ([cont, nonjoin] = [false, true])
                 }
